@@ -28,11 +28,4 @@ describe "test de tito" {
         tito.consumir(5, cianuro)
         assert.equals(0,tito.velocidad())
     }
-
-    test "El rendimiento del licuado con algunos nutrientes" {
-        licuado.agregar(10)
-        licuado.agregar(5)
-        assert.equals(30,licuado.rendimiento(2))
-    }
-
 }

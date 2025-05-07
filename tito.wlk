@@ -17,9 +17,13 @@ object tito {
 
 object wisky {
     method rendimiento(cantidad) = 0.9 ** cantidad
+
+    method cantidadDeNutrientes() = 0
 }
 object cianuro {
     method rendimiento(cantidad) = 0
+
+    method cantidadDeNutrientes() = -500
 }
 
 object terere {
@@ -27,6 +31,8 @@ object terere {
         return 1.max(cantidad * 0.1)
         //tambien (cantidad * 0.1).max(1)
     }
+
+    method cantidadDeNutrientes() = 5
 }
 
 object licuado {
@@ -35,7 +41,7 @@ object licuado {
     method rendimiento(cantidad) = cantidadDeNutrientes.sum() * cantidad
 
     method agregar(elementoParaAgregar) {
-        cantidadDeNutrientes.add(elementoParaAgregar)
+        cantidadDeNutrientes.add(elementoParaAgregar.cantidadDeNutrientes())
     }
 }
 
@@ -45,13 +51,15 @@ object aguaSaborizada {
     method rendimiento(cantidad) = 1 + bebidaMezclada.rendimiento(cantidad) / 4
 
     method mezclar(unaBebida) {
-        if (unaBebida != aguaSaborizada) {
+        if (unaBebida != self) {
             bebidaMezclada = unaBebida
         } 
         else {
             bebidaMezclada = terere
         }
     }
+
+    method cantidadDeNutrientes() = 1
 }
 
 object coctelSuave {
@@ -65,4 +73,43 @@ object coctelSuave {
     method agregar(unaBebida) {
         bebidas.add(unaBebida)
     }
+
+    method cantidadDeNutrientes() = 10
 }
+
+object coctel {
+    const bebidas = [wisky, terere]
+
+    method rendimiento(cantidad) {
+        const bebidasAConsiderar = bebidas.map({bebida => bebida.rendimiento(cantidad)})
+        return bebidasAConsiderar.fold(1, {multiplicador, rendimiento => multiplicador * rendimiento})
+    }
+
+    method agregar(unaBebida) {
+        bebidas.add(unaBebida)
+    }
+
+    method cantidadDeNutrientes() = 20
+}
+
+//Frutas y demás para el licuado
+object banana {
+    method cantidadDeNutrientes() = 1
+}
+
+object naranja {
+    method cantidadDeNutrientes() = 2
+}
+
+object kiwi {
+    method cantidadDeNutrientes() = 5
+}
+
+object hielo {
+    method cantidadDeNutrientes() = 0
+}
+
+object leche {
+    method cantidadDeNutrientes() = 50
+}
+
