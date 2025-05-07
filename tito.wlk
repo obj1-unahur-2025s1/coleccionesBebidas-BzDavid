@@ -45,7 +45,12 @@ object aguaSaborizada {
     method rendimiento(cantidad) = 1 + bebidaMezclada.rendimiento(cantidad) / 4
 
     method mezclar(unaBebida) {
-        bebidaMezclada = unaBebida
+        if (unaBebida != aguaSaborizada) {
+            bebidaMezclada = unaBebida
+        } 
+        else {
+            bebidaMezclada = terere
+        }
     }
 }
 
